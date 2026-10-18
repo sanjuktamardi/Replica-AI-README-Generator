@@ -1,0 +1,30 @@
+[theme]
+base = "dark"
+
+# Bright violet/lavender highlight for your action items
+primaryColor = "#A855F7"
+
+# Deep, dark ink-violet base canvas
+backgroundColor = "#1E1B4B"
+
+# A heavily muted, dark plum-tinted tone for the sidebar
+secondaryBackgroundColor = "#0F0E26"
+
+# Light lilac-tinted white for maximum text readability
+textColor = "#F5F3FF"
+
+font = "sans-serif"
+headingFont = "sans-serif"
+codeFont = "monospace"
+
+# Soft purple-tinted steel border lines
+borderColor = "#312E81"
+
+# Balanced dark indigo blocks for backticks and file paths
+codeBackgroundColor = "#312E81"
+
+baseRadius = "medium"
+buttonRadius = "medium"
+
+showWidgetBorder = true
+showSidebarBorder = true
