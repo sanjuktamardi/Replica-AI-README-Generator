@@ -1,4 +1,13 @@
+os
+sys
 streamlit
 mysql.connector
 dotenv
-Agno
+datatime
+agno.agent
+agno.db.sqlite
+agno.models.openrouter
+agno.tools.file_generation  
+agno.tools.github
+agno.team.mode
+agno.team.team

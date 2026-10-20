@@ -1,0 +1,33 @@
+CREATE DATABASE history_db;
+USE history_db;
+
+CREATE TABLE convo_history(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(250) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES login.users(id)
+);
+
+CREATE TABLE conversation(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    convo_id INT NOT NULL,
+    role ENUM('user', 'assistant') NOT NULL,
+    content LONGTEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(convo_id) REFERENCES convo_history(id)
+    ON DELETE CASCADE
+);
+
+SELECT * FROM convo_history;
+
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE convo_history;
+SET FOREIGN_KEY_CHECKS=1;
+
+SELECT * FROM conversation;
+
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE conversation;
+SET FOREIGN_KEY_CHECKS=1;
