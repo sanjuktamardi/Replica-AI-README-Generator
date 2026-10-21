@@ -23,6 +23,4 @@ __pycache__/
 
 # Logs
 *.log
-
-# Local conversation history
-chat_history_db/
+.streamlit/secrets.toml

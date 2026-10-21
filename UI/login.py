@@ -1,20 +1,18 @@
 import streamlit as st
 import mysql.connector
 from dotenv import load_dotenv
-import os
 load_dotenv()
 
 class Login():
-        def __init__(self):
-             self.db_config = {
-                            "host" : os.getenv("db_host"),
-                            "user" : os.getenv("db_user"),
-                            "password": os.getenv("db_password"),
-                            "database": os.getenv("db_database"),
-                        }
-
         def get_connection(self):
-            return mysql.connector.connect(**self.db_config)
+            return mysql.connector.connect(
+                host=st.secrets["connections"]["login"]["host"],
+                port=int(st.secrets["connections"]["login"]["port"]),
+                user=st.secrets["connections"]["login"]["username"],
+                password=st.secrets["connections"]["login"]["password"],
+                database=st.secrets["connections"]["login"]["database"],
+    )
+
         
         def verify_login(self, username, emailid, password):
             conn = self.get_connection()

@@ -1,16 +1,14 @@
 import mysql.connector
-import os
-
-def _db_config():
-    return {
-            "host" : os.getenv("db_host"),
-            "user" : os.getenv("db_user"),
-            "password": os.getenv("db_password"),
-            "database": os.getenv("db_database"),
-    }
+import streamlit as st
 
 def _get_connection():
-    return mysql.connector.connect(**_db_config())
+    return mysql.connector.connect(
+        host=st.secrets["connections"]["history_db"]["host"],
+        port=int(st.secrets["connections"]["history_db"]["port"]),
+        user=st.secrets["connections"]["history_db"]["username"],
+        password=st.secrets["connections"]["history_db"]["password"],
+        database=st.secrets["connections"]["history_db"]["database"],
+    )
 
 def existing_user_chat(user_id):
     conn = _get_connection()
