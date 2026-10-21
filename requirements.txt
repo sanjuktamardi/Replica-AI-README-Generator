@@ -5,3 +5,4 @@ agno
 SQLAlchemy
 openai
 greenlet
+PyGithub
