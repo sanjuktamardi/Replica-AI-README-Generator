@@ -1,8 +1,8 @@
-streamlit
-mysql-connector-python
-python-dotenv
 agno
-SQLAlchemy
 openai
 greenlet
 PyGithub
+streamlit
+SQLAlchemy
+python-dotenv
+mysql-connector-python

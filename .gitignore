@@ -24,3 +24,6 @@ __pycache__/
 # Logs
 *.log
 .streamlit/secrets.toml
+
+# initialization files
+__init__.py

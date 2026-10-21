@@ -1,4 +1,5 @@
 import os
+import streamlit as st
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.models.openrouter import OpenRouterResponses
@@ -15,10 +16,10 @@ class Replica:
 
         self.model_provider = OpenRouterResponses(
             id=self.model_id,
-            api_key=os.getenv("openrouter_api_key"),
+            api_key=st.secrets.get("OPENROUTER_API_KEY"),
         )
 
-        self.GITHUB_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN")
+        self.GITHUB_TOKEN = st.secrets.get("GITHUB_ACCESS_TOKEN")
         if not self.GITHUB_TOKEN:
             raise ValueError("GITHUB_ACCESS_TOKEN is not set in .env")
 
