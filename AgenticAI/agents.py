@@ -23,9 +23,11 @@ class Replica:
         if not self.GITHUB_TOKEN:
             raise ValueError("GITHUB_ACCESS_TOKEN is not set in .env")
 
+        os.makedirs("tmp", exist_ok=True)
         self.db = SqliteDb(db_file="tmp/memory.db")
         if not self.db:
              raise ValueError("Cannot access tmp folder")
+    
 
     def _analyst_agent(self):
 
