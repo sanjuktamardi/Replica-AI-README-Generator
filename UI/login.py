@@ -1,3 +1,4 @@
+from pathlib import Path
 import streamlit as st
 import mysql.connector
 from dotenv import load_dotenv
@@ -5,13 +6,19 @@ load_dotenv()
 
 class Login():
         def get_connection(self):
+            ssl_ca = str(
+                            Path(__file__).resolve().parents[1] / "certs" / "ca.pem"
+                        )
             return mysql.connector.connect(
-                host=st.secrets["connections"]["login"]["host"],
-                port=int(st.secrets["connections"]["login"]["port"]),
-                user=st.secrets["connections"]["login"]["username"],
-                password=st.secrets["connections"]["login"]["password"],
-                database=st.secrets["connections"]["login"]["database"],
-    )
+                host=st.secrets["connections"]["host"],
+                port=int(st.secrets["connections"]["port"]),
+                user=st.secrets["connections"]["username"],
+                password=st.secrets["connections"]["password"],
+                database=st.secrets["connections"]["database"],
+                ssl_ca=ssl_ca,
+                ssl_verify_cert=True,
+                ssl_verify_identity=True,
+                )
 
         
         def verify_login(self, username, emailid, password):

@@ -1,20 +1,28 @@
+from pathlib import Path
+
 import mysql.connector
 import streamlit as st
 
 def _get_connection():
+    ssl_ca = str(
+                Path(__file__).resolve().parents[1] / "certs" / "ca.pem"
+            )
     return mysql.connector.connect(
-        host=st.secrets["connections"]["history_db"]["host"],
-        port=int(st.secrets["connections"]["history_db"]["port"]),
-        user=st.secrets["connections"]["history_db"]["username"],
-        password=st.secrets["connections"]["history_db"]["password"],
-        database=st.secrets["connections"]["history_db"]["database"],
+        host=st.secrets["connections"]["host"],
+        port=int(st.secrets["connections"]["port"]),
+        user=st.secrets["connections"]["username"],
+        password=st.secrets["connections"]["password"],
+        database=st.secrets["connections"]["database"],
+        ssl_ca=ssl_ca,
+        ssl_verify_cert=True,
+        ssl_verify_identity=True,
     )
 
 def existing_user_chat(user_id):
     conn = _get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id, title FROM history_db.convo_history WHERE user_id=%s",
+    cursor.execute("SELECT id, title FROM convo_history WHERE user_id=%s",
                    (int(user_id),)
                    )
     return cursor.fetchall()
@@ -23,11 +31,12 @@ def new_user_chat(user_id, title):
     conn = _get_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("""INSERT INTO history_db.convo_history(user_id, title)
+        cursor.execute("""INSERT INTO convo_history(user_id, title)
                         VALUES(%s, %s)
                         """,
                         (user_id, title))
         conn.commit()
+        cursor.close()
         return cursor.lastrowid
 
     finally:
@@ -41,7 +50,7 @@ def both_conversation(convo_id, role, content):
 
     try:
         query = """
-                INSERT INTO history_db.conversation(convo_id, role, content) 
+                INSERT INTO conversation(convo_id, role, content) 
                 VALUES(%s, %s, %s)"""
         
         values = (convo_id, role, content)
@@ -58,7 +67,7 @@ def load_all_messages(convo_id):
     cursor = conn.cursor()
 
     try:
-        query = "SELECT role, content FROM history_db.conversation WHERE convo_id = %s ORDER BY created_at ASC"
+        query = "SELECT role, content FROM conversation WHERE convo_id = %s ORDER BY created_at ASC"
         values = (convo_id,)
 
         cursor.execute(query, values)
@@ -76,4 +85,4 @@ def load_all_messages(convo_id):
         return chats
     finally:
         cursor.close()
-        conn.close
+        conn.close()

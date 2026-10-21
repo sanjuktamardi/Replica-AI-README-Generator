@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import streamlit as st
 import mysql.connector
 import datetime
@@ -11,14 +12,23 @@ class Signup:
                             layout = "centered",
                             initial_sidebar_state="collapsed",
                             )
-        self.db_config = {
-                            "host" : os.getenv("db_host"),
-                            "user" : os.getenv("db_user"),
-                            "password": os.getenv("db_password"),
-                            "database": os.getenv("db_database"),
-                        }
+        self.ssl_ca = os.path.abspath("certs/ca.pem")
+        st.write("CA certificate exists:", Path(self.ssl_ca).is_file())
+
     def get_connection(self):
-        return mysql.connector.connect(**self.db_config)
+        ssl_ca = str(
+                    Path(__file__).resolve().parents[1] / "certs" / "ca.pem"
+                    )
+        return mysql.connector.connect(
+            host=st.secrets["connections"]["host"],
+            port=int(st.secrets["connections"]["port"]),
+            user=st.secrets["connections"]["username"],
+            password=st.secrets["connections"]["password"],
+            database=st.secrets["connections"]["database"],
+            ssl_ca=self.ssl_ca,
+            ssl_verify_cert=True,
+            ssl_verify_identity=True,
+            )
 
     def user_exists(self, cursor, username, emaiid):
         cursor.execute("SELECT username FROM users WHERE username=%s OR emailid=%s",
