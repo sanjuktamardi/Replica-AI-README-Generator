@@ -155,7 +155,7 @@ class Query:
 
                 both_conversation(current_chat_id, role='assistant', content=assistant_response)
 
-                st.rerun()
+                
 
     def title_creation(self, prompt):
 

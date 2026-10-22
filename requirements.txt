@@ -1,8 +1,10 @@
 agno
 openai
-greenlet
 PyGithub
+greenlet
 streamlit
+reportlab
 SQLAlchemy
+python-docx
 python-dotenv
 mysql-connector-python
