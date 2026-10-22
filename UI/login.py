@@ -4,6 +4,8 @@ import mysql.connector
 from dotenv import load_dotenv
 load_dotenv()
 
+
+@st.cache_resource
 class Login():
         def get_connection(self):
             ssl_ca = str(

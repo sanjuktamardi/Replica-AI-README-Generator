@@ -28,7 +28,6 @@ class Replica:
         if not self.db:
              raise ValueError("Cannot access tmp folder")
     
-
     def _analyst_agent(self):
 
         return Agent(
