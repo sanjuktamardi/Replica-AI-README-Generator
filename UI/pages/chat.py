@@ -13,6 +13,7 @@ import streamlit as st
 from chat_history_db.chat_db import new_user_chat, existing_user_chat, load_all_messages, both_conversation
 from AgenticAI.agents import Replica
 
+@st.cache_resource
 class Query:
     def __init__(self):
         st.set_page_config(

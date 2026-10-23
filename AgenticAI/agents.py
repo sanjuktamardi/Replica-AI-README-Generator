@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Replica:
-    def __init__(self, model_id = "liquid/lfm-2.5-2.6b:free"):
+    def __init__(self, model_id = "recursive/flint-v1.0:free"):
         self.model_id = model_id
 
         self.model_provider = OpenRouterResponses(
