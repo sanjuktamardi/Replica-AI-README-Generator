@@ -70,10 +70,3 @@ streamlit run UI/login.py
 └── requirements.txt
 ```
 
-## Limitations / Gaps
-
-- No `README.md` was present in the repository before this draft.
-- No license file is present.
-- No tests, CI, docs, or contributor guide were found.
-- No version pins or Python version evidence were found.
-- No recorded results or metrics were found.
