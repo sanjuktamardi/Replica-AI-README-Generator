@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Replica:
-    def __init__(self, model_id = "recursive/flint-v1.0:free"):
+    def __init__(self, model_id = "nvidia/nemotron-3.5-super-vl:free"):
         self.model_id = model_id
 
         self.model_provider = OpenRouterResponses(
@@ -128,7 +128,9 @@ class Replica:
                     add_datetime_to_context = True,
                     markdown = True,
                     db = self.db,
-                    update_memory_on_run = True
+                    update_memory_on_run = True,
+                    add_history_to_context=True,
+                    read_chat_history=True
                 )
         
     def _writer_agent(self):
@@ -221,7 +223,9 @@ class Replica:
                     tool_call_limit=15,
                     add_datetime_to_context = True,
                     db = self.db,
-                    update_memory_on_run=True
+                    update_memory_on_run=True,
+                    add_history_to_context=True,
+                    read_chat_history=True
                 )
 
     def manager(self):
@@ -654,5 +658,9 @@ class Replica:
                             """],
                 show_members_responses = True,
                 db = self.db,
-                update_memory_on_run = True
+                update_memory_on_run = True,
+                add_history_to_context=True,
+                add_history_to_context_to_members=True,
+                add_datetime_to_context = True,
+                read_chat_history=True
             )
