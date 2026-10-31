@@ -13,12 +13,8 @@ class Signup:
                             initial_sidebar_state="collapsed",
                             )
         self.ssl_ca = os.path.abspath("certs/ca.pem")
-        st.write("CA certificate exists:", Path(self.ssl_ca).is_file())
 
     def get_connection(self):
-        ssl_ca = str(
-                    Path(__file__).resolve().parents[1] / "certs" / "ca.pem"
-                    )
         return mysql.connector.connect(
             host=st.secrets["connections"]["host"],
             port=int(st.secrets["connections"]["port"]),
