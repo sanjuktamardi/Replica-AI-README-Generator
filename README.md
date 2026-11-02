@@ -69,4 +69,5 @@ streamlit run UI/login.py
 ├── __init__.py
 └── requirements.txt
 ```
-
+## User Interface (UI)
+![chat interface](images/chat_UI.png)
