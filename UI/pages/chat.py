@@ -101,7 +101,16 @@ class Query:
         for msg in messages:
             with st.chat_message(msg['role']):
                 st.write(msg['content'])
-    
+
+    def under_maintenance():
+        st.title("🚧 Replica is Under Development")
+        st.warning(
+            "We're currently working on improving Replica. "
+            "Some features may be temporarily unavailable."
+        )
+        st.info("Please check back soon. Thank you for your patience!")
+
+        st.stop()
 
     def interface(self):
         if not st.session_state.get("logged_in", False):
@@ -180,4 +189,4 @@ class Query:
 
 if __name__ == "__main__":
     app = Query()
-    app.interface()
+    app.under_maintenance()
