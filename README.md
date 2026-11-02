@@ -70,11 +70,11 @@ streamlit run UI/login.py
 └── requirements.txt
 ```
 ## User Interface (UI)
+### 1.***Chat Interface***
 ![chat interface](images/chat_UI.png)
-### ***Chat Interface***
 
+### 2.***Login Interface***
 ![chat interface](images/Login.png)
-### ***Login Interface***
 
+### 3.***Signup Interface***
 ![chat interface](images/Sign_Up.png)
-### ***Signup Interface***
