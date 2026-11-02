@@ -97,7 +97,7 @@ class Login():
             col, col1, col2, col3, col4 = st.columns(5)
             with col2:
                     # st.html("<br>")
-                    signup_button = st.button(label=":orange[Set up an Account] :red[Signup]", type="tertiary", use_container_width=True)
+                    signup_button = st.button(label=":orange[Set up an Account]", type="tertiary", use_container_width=True)
                     # st.button(label=":orange[Signup]", type="tertiary")
                     if signup_button:
                         st.switch_page("pages/signup.py")
