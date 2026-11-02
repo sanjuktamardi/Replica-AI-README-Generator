@@ -101,8 +101,7 @@ class Query:
         for msg in messages:
             with st.chat_message(msg['role']):
                 st.write(msg['content'])
-
-    import streamlit as st
+    
 
     def interface(self):
         if not st.session_state.get("logged_in", False):
