@@ -102,7 +102,17 @@ class Query:
             with st.chat_message(msg['role']):
                 st.write(msg['content'])
 
+    import streamlit as st
 
+    def under_maintenance(self):
+        MODEL_UNDER_MAINTENANCE = True
+
+        if MODEL_UNDER_MAINTENANCE:
+            st.warning(
+                "Replica is currently under development. "
+                "AI-powered features may be temporarily unavailable."
+            )
+            st.stop()
     def interface(self):
         if not st.session_state.get("logged_in", False):
             return
@@ -180,4 +190,4 @@ class Query:
 
 if __name__ == "__main__":
     app = Query()
-    app.interface()
+    app.under_maintenance()
