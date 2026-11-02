@@ -104,15 +104,6 @@ class Query:
 
     import streamlit as st
 
-    def under_maintenance(self):
-        MODEL_UNDER_MAINTENANCE = True
-
-        if MODEL_UNDER_MAINTENANCE:
-            st.warning(
-                "Replica is currently under development. "
-                "AI-powered features may be temporarily unavailable."
-            )
-            st.stop()
     def interface(self):
         if not st.session_state.get("logged_in", False):
             return
@@ -149,11 +140,11 @@ class Query:
                     "role" : "user",
                     "content" : user_query
                 })
+
             with st.chat_message("assistant"):
                 with st.spinner("Analyzing..."):
                     replica = Replica()
                     manager = replica.manager()
-
                     response = manager.run(user_query)
 
                 assistant_response = response.content
@@ -190,4 +181,4 @@ class Query:
 
 if __name__ == "__main__":
     app = Query()
-    app.under_maintenance()
+    app.interface()
