@@ -78,4 +78,3 @@ streamlit run UI/login.py
 
 ![chat interface](images/Sign_Up.png)
 # Signup Interface
-
