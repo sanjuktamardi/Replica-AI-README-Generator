@@ -102,7 +102,7 @@ class Query:
             with st.chat_message(msg['role']):
                 st.write(msg['content'])
 
-    def under_maintenance():
+    def under_maintenance(self):
         st.title("🚧 Replica is Under Development")
         st.warning(
             "We're currently working on improving Replica. "
