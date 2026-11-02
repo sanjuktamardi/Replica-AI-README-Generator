@@ -71,10 +71,10 @@ streamlit run UI/login.py
 ```
 ## User Interface (UI)
 ![chat interface](images/chat_UI.png)
-# Chat Interface
+### ***Chat Interface***
 
 ![chat interface](images/Login.png)
-# Login Interface
+### ***Login Interface***
 
 ![chat interface](images/Sign_Up.png)
-# Signup Interface
+### ***Signup Interface***
