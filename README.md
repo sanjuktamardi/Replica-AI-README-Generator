@@ -1,7 +1,5 @@
 # Replica
 
-> **🚧 Development Notice:** Replica is actively being improved. Certain AI-powered features may be temporarily unavailable during development.
-
 ## Overview
 
 Replica is an AI-powered assistant that analyzes GitHub repositories, generates README documentation, and helps identify and fix minor bugs in your code.
