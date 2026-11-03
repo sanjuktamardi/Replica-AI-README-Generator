@@ -129,8 +129,6 @@ class Query:
                 user_query = str(prompt)
 
                 with st.chat_message("user"):
-                    # st.write(user_query)
-
                     user_id = st.session_state.get("user_id")
                     current_chat_id = st.session_state.get("current_chat_id")
 
