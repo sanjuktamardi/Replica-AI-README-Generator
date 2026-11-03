@@ -41,7 +41,6 @@ class Query:
 
             st.sidebar.write(f"👤 {user}")
             st.sidebar.write(f"📧 {email}")
-            self.display_conversation()
 
             if st.sidebar.button("logout"):
                 st.session_state["logged_in"] = False
@@ -53,7 +52,7 @@ class Query:
             with col1:
                 st.warning(f"Please log in first")
             with col2:
-                if st.button("login here", type="tertiary"):
+                if st.button(":red[login here]", type="tertiary"):
                     st.switch_page("login.py")
 
     def chat_session(self):
@@ -94,7 +93,6 @@ class Query:
                     st.session_state["current_chat_id"] = chat_id
                     messages = load_all_messages(chat_id)
                     st.session_state["messages"] = messages
-                    self.display_conversation()
                 
     def display_conversation(self):
         messages = st.session_state.get("messages", [])
@@ -106,7 +104,7 @@ class Query:
     def interface(self):
         if not st.session_state.get("logged_in", False):
             return
-
+        
         self.display_conversation()
 
         with st.container(autoscroll=True):
@@ -153,7 +151,7 @@ class Query:
                         response = manager.run(user_query, session_id=str_session_id)
 
                     assistant_response = response.content
-                    # st.write(assistant_response)
+                    
 
                     st.session_state["messages"].append({
                         "role" : "assistant",
@@ -180,7 +178,6 @@ class Query:
             title += "..."
 
         return title
-
 
 if __name__ == "__main__":
     app = Query()

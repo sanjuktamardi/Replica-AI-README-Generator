@@ -14,11 +14,13 @@ Replica is an AI-powered assistant that analyzes GitHub repositories, generates 
 
 ## How It Works
 
-Replica is built as an Agno multi-agent team operating in coordinate mode:
+Replica is built using an Agno multi-agent team operating in coordinate mode, where specialized agents collaborate to handle different tasks.
 
-- **Manager** – coordinates the Analyst and Writer agents.
-- **Analyst** – investigates GitHub repositories using GitHub tools (`get_repository`, `get_repository_languages`, `list_branches`, `get_directory_content`, `get_file_content`) and gathers verified repository information for README generation and bug investigation.
-- **Writer** – generates a professional README from the Analyst's verified findings and produces an editable `.docx` via file-generation tools.
+Manager: Coordinates the Analyst and Writer agents and manages the overall workflow.
+
+Analyst: Investigates GitHub repositories using GitHub tools such as get_repository, get_repository_languages, list_branches, get_directory_content, and get_file_content. It gathers verified repository information for documentation generation and bug investigation.
+
+Writer: Uses the Analyst's findings to generate professional README documentation.
 
 ## Tech Stack
 
@@ -80,3 +82,11 @@ streamlit run UI/login.py
 
 ### 3.***Signup Interface***
 ![chat interface](images/Sign_Up.png)
+
+## Feedback and Contributions
+
+### Thank you for taking the time to explore Replica!
+
+If you encounter any bugs, identify issues, or have ideas for new features and improvements, feel free to connect with me. Your feedback and suggestions are always welcome!
+
+I'd love to hear your thoughts and make Replica better. 😊

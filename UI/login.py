@@ -1,9 +1,6 @@
 from pathlib import Path
 import streamlit as st
 import mysql.connector
-from dotenv import load_dotenv
-load_dotenv()
-
 
 @st.cache_resource
 class Login():
