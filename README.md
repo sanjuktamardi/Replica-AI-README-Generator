@@ -9,7 +9,7 @@ Replica is an AI-powered assistant that analyzes GitHub repositories, generates 
 ## Features
 
 - Agentic GitHub repository analysis.
-- AI-generated, editable README documentation delivered as a `.docx` file.
+- AI-generated, editable README documentation delivered with markdown syntaxes.
 - Bug and error investigation with actionable fix guidance.
 
 ## How It Works
