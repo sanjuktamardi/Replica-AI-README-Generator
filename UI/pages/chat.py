@@ -107,11 +107,6 @@ class Query:
         
         self.display_conversation()
 
-        with st.container(autoscroll=True):
-                    for msg in st.session_state.get("messages", []):
-                        with st.chat_message(msg['role']):
-                            st.write(msg['content'])
-
         prompt = st.chat_input("What would you like Replica to do?")
     
         if prompt:
@@ -126,39 +121,41 @@ class Query:
             else:
                 user_query = str(prompt)
 
-                with st.chat_message("user"):
-                    user_id = st.session_state.get("user_id")
-                    current_chat_id = st.session_state.get("current_chat_id")
+                with st.container(autoscroll=True):
+                    with st.chat_message("user"):
+                        st.write(user_query)
+                        user_id = st.session_state.get("user_id")
+                        current_chat_id = st.session_state.get("current_chat_id")
 
-                    if current_chat_id is None:
-                        user_title = self.title_creation(user_query)
-                        current_chat_id = new_user_chat(user_id=user_id, title=user_title)
-                
-
-                        st.session_state["current_chat_id"] = current_chat_id
-
-                    both_conversation(current_chat_id, role='user', content=user_query)
-                    st.session_state["messages"].append({
-                        "role" : "user",
-                        "content" : user_query
-                    })
-
-                with st.chat_message("assistant"):
-                    with st.spinner("Analyzing..."):
-                        replica = Replica()
-                        str_session_id = str(current_chat_id)
-                        manager = replica.manager(session_id=str_session_id)
-                        response = manager.run(user_query, session_id=str_session_id)
-
-                    assistant_response = response.content
+                        if current_chat_id is None:
+                            user_title = self.title_creation(user_query)
+                            current_chat_id = new_user_chat(user_id=user_id, title=user_title)
                     
 
-                    st.session_state["messages"].append({
-                        "role" : "assistant",
-                        "content" : assistant_response
-                    })
+                            st.session_state["current_chat_id"] = current_chat_id
 
-                    both_conversation(current_chat_id, role='assistant', content=assistant_response)
+                        both_conversation(current_chat_id, role='user', content=user_query)
+                        st.session_state["messages"].append({
+                            "role" : "user",
+                            "content" : user_query
+                        })
+
+                    with st.chat_message("assistant"):
+                        with st.spinner("Analyzing..."):
+                            replica = Replica()
+                            str_session_id = str(current_chat_id)
+                            manager = replica.manager(session_id=str_session_id)
+                            response = manager.run(user_query, session_id=str_session_id)
+
+                        assistant_response = response.content
+                        
+
+                        st.session_state["messages"].append({
+                            "role" : "assistant",
+                            "content" : assistant_response
+                        })
+
+                        both_conversation(current_chat_id, role='assistant', content=assistant_response)
 
     def title_creation(self, prompt):
 
