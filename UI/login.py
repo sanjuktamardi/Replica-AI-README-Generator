@@ -63,14 +63,12 @@ class Login():
             if st.session_state["logged_in"]:
                 user = st.session_state["user"]
                 email = st.session_state["email"]
-                st.toast(f"Welcome {user}!")
-                st.write(f"Email {email}")
-                if st.button("Logout"):
+                if st.sidebar.button("Logout"):
                     st.session_state["logged_in"] = False
                     st.session_state["user"] = None
                     st.session_state["email"] = None
                     st.rerun()
-                return 
+                    return
 
             # Login form
             log_in = st.form("login form", border=True)
@@ -96,9 +94,7 @@ class Login():
                     
             col, col1, col2, col3, col4 = st.columns(5)
             with col2:
-                    # st.html("<br>")
                     signup_button = st.button(label=":orange[Set up an Account]", type="tertiary", use_container_width=True)
-                    # st.button(label=":orange[Signup]", type="tertiary")
                     if signup_button:
                         st.switch_page("pages/signup.py")
 
