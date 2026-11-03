@@ -6,8 +6,6 @@ from agno.models.openrouter import OpenRouterResponses
 from agno.tools.github import GithubTools
 from agno.team.mode import TeamMode
 from agno.team.team import Team
-from dotenv import load_dotenv
-load_dotenv()
 
 class Replica:
     def __init__(self, model_id = "nvidia/nemotron-3.5-super-vl:free"):
@@ -33,7 +31,7 @@ class Replica:
         self.written_instructions = open(os.path.join(instruction_path, "writer_agent.txt"), "r", encoding="utf-8").read()
         self.manager_instructions = open(os.path.join(instruction_path, "manager_agent.txt"), "r", encoding="utf-8").read()
 
-    def _analyst_agent(self):
+    def _analyst_agent(self, session_id=None):
         return Agent(
                     name = "Analyst",
                     model = self.model_provider,
@@ -50,16 +48,17 @@ class Replica:
                                     ]
                                 )
                             ],
-                    tool_call_limit=25,
+                    tool_call_limit=15,
                     add_datetime_to_context = True,
                     markdown = True,
                     db = self.db,
+                    session_id=session_id,
                     update_memory_on_run = True,
                     add_history_to_context=True,
                     read_chat_history=True
                 )
         
-    def _writer_agent(self):
+    def _writer_agent(self, session_id=None):
             return Agent(
                     name = "Writer",
                     model = self.model_provider,
@@ -73,18 +72,19 @@ class Replica:
                                                     ]
                                         )
                             ],
-                    tool_call_limit=15,
+                    tool_call_limit=5,
                     add_datetime_to_context = True,
                     db = self.db,
+                    session_id=session_id,
                     update_memory_on_run=True,
                     add_history_to_context=True,
                     read_chat_history=True
                 )
 
-    def manager(self):
-            analyst = self._analyst_agent()
-            writer = self._writer_agent()
-            
+    def manager(self, session_id=None):
+            analyst = self._analyst_agent(session_id=session_id)
+            writer = self._writer_agent(session_id=session_id)
+
             return Team(
                 name = "Manager",
                 members = [analyst, writer],
