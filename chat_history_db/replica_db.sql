@@ -1,0 +1,35 @@
+CREATE DATABASE replica_db;
+
+use replica_db;
+
+-- Tables
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) DEFAULT NULL,
+    username VARCHAR(100) NOT NULL,
+    dob DATE DEFAULT NULL,
+    emailid VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS convo_history (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(250) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS conversation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    convo_id INT NOT NULL,
+    role ENUM('user', 'assistant') NOT NULL,
+    content LONGTEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (convo_id) REFERENCES convo_history(id)
+        ON DELETE CASCADE
+);
