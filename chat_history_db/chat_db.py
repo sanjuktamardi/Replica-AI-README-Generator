@@ -1,21 +1,13 @@
-from pathlib import Path
-
 import mysql.connector
 import streamlit as st
 
 def _get_connection():
-    ssl_ca = str(
-                Path(__file__).resolve().parents[1] / "certs" / "ca.pem"
-            )
     return mysql.connector.connect(
         host=st.secrets["connections"]["host"],
         port=int(st.secrets["connections"]["port"]),
-        user=st.secrets["connections"]["username"],
+        user=st.secrets["connections"]["user"],
         password=st.secrets["connections"]["password"],
         database=st.secrets["connections"]["database"],
-        ssl_ca=ssl_ca,
-        ssl_verify_cert=True,
-        ssl_verify_identity=True,
     )
 
 def existing_user_chat(user_id):
