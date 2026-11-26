@@ -1,215 +1,174 @@
-Replica
+# Replica
 
-An AI-powered GitHub repository assistant that analyzes codebases, generates professional README documentation, and helps investigate bugs and errors.
+## Overview
 
-Overview
+Replica is an AI-powered GitHub repository assistant that analyzes repositories, generates professional README documentation, and helps investigate bugs and errors by providing actionable fix suggestions.
 
-Replica is an AI-powered assistant designed to simplify GitHub repository understanding and documentation. Users can provide a GitHub repository URL to analyze its structure, explore files, generate README documentation, and investigate code-related issues.
+## Features
 
-Built using Agno's multi-agent architecture, Replica coordinates specialized AI agents to perform repository analysis and documentation tasks.
+- **Agentic GitHub Repository Analysis:** Analyzes repository information, files, directories, branches, and programming languages.
+- **AI-Generated README Documentation:** Generates structured, editable README documentation in Markdown format.
+- **Bug and Error Investigation:** Examines code and helps identify potential issues with actionable fix guidance.
+- **Multi-Agent Collaboration:** Uses specialized AI agents to coordinate repository analysis and documentation generation.
 
-Features
+## How It Works
 
-Agentic GitHub Repository Analysis: Examines repository information, branches, programming languages, directory structures, and file contents.
+Replica is built using an Agno multi-agent team operating in coordinate mode, where specialized agents collaborate to complete repository-related tasks.
 
-AI-Powered README Generation: Generates structured and editable Markdown documentation based on verified repository information.
+### Manager
 
-Bug and Error Investigation: Helps investigate code-related issues and provides actionable debugging guidance.
+Coordinates the Analyst and Writer agents, manages task delegation, and oversees the overall workflow.
 
-GitHub Integration: Uses GitHub tools to retrieve repository information and inspect source files.
+### Analyst
 
-User Authentication: Provides login and signup functionality.
+Investigates GitHub repositories using GitHub tools, including:
 
-Conversation History: Stores user conversations and chat history using MySQL.
+- `get_repository`
+- `get_repository_languages`
+- `list_branches`
+- `get_directory_content`
+- `get_file_content`
 
-Docker Support: Provides containerized application and database deployment using Docker Compose.
+It gathers verified repository information for README generation and bug investigation.
 
-How It Works
+### Writer
 
-Replica uses an Agno multi-agent team operating in coordinate mode. Specialized agents collaborate to handle repository analysis and documentation generation.
+Uses the Analyst's findings to generate professional, structured README documentation in Markdown format.
 
-Agent Architecture
+## Tech Stack
 
-1. Manager Agent
+- **Programming Language:** Python
+- **AI Agent Framework:** Agno
+- **LLM Integration:** OpenAI-compatible APIs
+- **GitHub Integration:** PyGithub
+- **User Interface:** Streamlit
+- **Database:** MySQL, SQLAlchemy
+- **Document Generation:** ReportLab, python-docx
+- **Environment Management:** python-dotenv
+- **Additional Dependencies:** greenlet, mysql-connector-python
 
-Coordinates the overall workflow.
+## Installation
 
-Delegates tasks to specialized agents.
+### 1. Clone the Repository
 
-Combines the results into a user-facing response.
+```bash
+git clone https://github.com/sanjuktamardi/Replica-AI-README-Generator.git
+cd Replica-AI-README-Generator
+```
 
-2. Analyst Agent
+### 2. Create a Virtual Environment
 
-Investigates GitHub repositories using GitHub tools.
+```bash
+python -m venv .venv
+```
 
-Retrieves repository information, programming languages, branches, directory contents, and file contents.
+Activate it:
 
-Collects verified information for README generation and bug investigation.
+**Windows:**
+```bash
+.venv\Scripts\activate
+```
 
-3. Writer Agent
+**Linux/macOS:**
+```bash
+source .venv/bin/activate
+```
 
-Uses the Analyst's findings to generate professional README documentation.
+### 3. Install Dependencies
 
-Organizes information into structured Markdown sections.
+```bash
+pip install -r requirements.txt
+```
 
-Tech Stack
+### 4. Configure Environment Variables
 
-Programming Language
+Create your local `.env` file using `.env.example` as a reference and configure the required database credentials.
 
-Python
+Configure your Streamlit secrets in `.streamlit/secrets.toml`.
 
-AI and Agent Framework
+Do not commit your actual credentials, API keys, or passwords to GitHub.
 
-Agno
+### 5. Run the Application
 
-OpenAI-compatible APIs
+```bash
+streamlit run UI/login.py
+```
 
-GitHub Integration
+## Docker Setup
 
-PyGithub
+Replica also supports containerized deployment using Docker and Docker Compose.
 
-Frontend
+### Build and Start Containers
 
-Streamlit
+```bash
+docker compose -f replica_compose.yaml up --build
+```
 
-Database
+### Stop Containers
 
-MySQL
+```bash
+docker compose -f replica_compose.yaml down
+```
 
-SQLAlchemy
+The Streamlit application runs on port `8501`, while MySQL runs in a separate container with persistent storage.
 
-mysql-connector-python
+## Project Structure
 
-Document Generation
-
-ReportLab
-
-python-docx
-
-Other Libraries
-
-greenlet
-
-python-dotenv
-
-Project Structure
-
-Replica/
+```text
+.
+├── .streamlit/
+│   └── config.toml
 ├── AgenticAI/
 │   ├── Instructions/
 │   │   ├── analyst_agent.txt
 │   │   ├── manager_agent.txt
 │   │   └── writer_agent.txt
+│   ├── __init__.py
 │   └── agents.py
-│
 ├── chat_history_db/
 │   ├── __init__.py
-│   └── chat_db.py
-│
+│   ├── chat_db.py
+│   └── replica_db.sql
 ├── docker/
 │   └── mysql/
 │       └── init/
 │           └── replica_db_backup.sql
-│
 ├── UI/
 │   ├── pages/
 │   │   ├── chat.py
 │   │   └── signup.py
 │   └── login.py
-│
 ├── images/
 │   ├── chat_UI.png
 │   ├── Login.png
 │   └── Sign_Up.png
-│
 ├── .dockerignore
 ├── .env.example
 ├── .gitignore
 ├── Dockerfile
+├── README.md
 ├── replica_compose.yaml
-├── requirements.txt
-└── README.md
+└── requirements.txt
+```
 
-Installation and Setup
-
-1. Clone the Repository
-
-git clone https://github.com/sanjuktamardi/Replica-AI-README-Generator.git
-cd Replica-AI-README-Generator
-
-2. Create a Virtual Environment
-
-python -m venv .venv
-
-Activate it:
-
-Windows:
-
-.venv\Scripts\activate
-
-Linux/macOS:
-
-source .venv/bin/activate
-
-3. Install Dependencies
-
-pip install -r requirements.txt
-
-4. Configure Environment Variables and Secrets
-
-Configure the required database credentials using your local .env file.
-
-Configure the required AI API key and GitHub access token using Streamlit secrets.
-
-Refer to .env.example for the expected database environment variable names.
-
-Never commit actual API keys, passwords, or access tokens to GitHub.
-
-5. Run the Application
-
-streamlit run UI/login.py
-
-Running with Docker
-
-Replica also supports containerized execution using Docker and Docker Compose.
-
-1. Configure Environment Variables
-
-Create a .env file in the project root containing the required MySQL credentials.
-
-2. Configure Streamlit Secrets
-
-Provide the required API credentials in .streamlit/secrets.toml.
-
-3. Build and Start Containers
-
-docker compose -f replica_compose.yaml up --build
-
-4. Access the Application
-
-Open your browser and navigate to:
-
-http://localhost:8501
-
-5. Stop the Containers
-
-docker compose -f replica_compose.yaml down
-
-The MySQL database uses a Docker named volume for persistent storage.
 ## User Interface (UI)
-### 1.***Chat Interface***
-![chat interface](images/chat_UI.png)
 
-### 2.***Login Interface***
-![chat interface](images/Login.png)
+### 1. Chat Interface
 
-### 3.***Signup Interface***
-![chat interface](images/Sign_Up.png)
+![Chat Interface](images/chat_UI.png)
 
-Feedback and Contributions
+### 2. Login Interface
+
+![Login Interface](images/Login.png)
+
+### 3. Signup Interface
+
+![Signup Interface](images/Sign_Up.png)
+
+## Feedback and Contributions
 
 Thank you for taking the time to explore Replica!
 
-If you encounter bugs, identify issues, or have ideas for new features and improvements, feel free to connect with me. Feedback and contributions are always welcome.
+If you encounter bugs, identify issues, or have ideas for new features and improvements, feel free to connect with me.
 
-I'd love to hear your thoughts and make Replica better! 😊
+Your feedback and suggestions are always welcome. I'd love to hear your thoughts and continue making Replica better! 😊
