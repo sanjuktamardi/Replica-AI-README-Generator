@@ -1,23 +1,32 @@
+import os
 import mysql.connector
-import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv(".env.local")
 
 def _get_connection():
-    return mysql.connector.connect(
-        host=st.secrets["connections"]["host"],
-        port=int(st.secrets["connections"]["port"]),
-        user=st.secrets["connections"]["user"],
-        password=st.secrets["connections"]["password"],
-        database=st.secrets["connections"]["database"],
-    )
-
+        return mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            port=int(os.getenv("DB_PORT", "3306")),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME"),
+        )
 def existing_user_chat(user_id):
     conn = _get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id, title FROM convo_history WHERE user_id=%s",
-                   (int(user_id),)
-                   )
-    return cursor.fetchall()
+    try:
+        cursor.execute(
+            "SELECT id, title FROM convo_history WHERE user_id=%s",
+            (int(user_id),)
+        )
+        return cursor.fetchall()
+
+    finally:
+        cursor.close()
+        conn.close()
+
 
 def new_user_chat(user_id, title):
     conn = _get_connection()
@@ -28,7 +37,6 @@ def new_user_chat(user_id, title):
                         """,
                         (user_id, title))
         conn.commit()
-        cursor.close()
         return cursor.lastrowid
 
     finally:

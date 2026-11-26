@@ -34,6 +34,7 @@ class Replica:
     def _analyst_agent(self, session_id=None):
         return Agent(
                     name = "Analyst",
+                    role="GitHub Repository Researcher. Inspects GitHub repositories using GitHub API tools, retrieves repository metadata, directory structures, source files, dependencies, and technical evidence.",
                     model = self.model_provider,
                     instructions = [self.analyst_instructions],
                     tools = [GithubTools(
@@ -61,6 +62,7 @@ class Replica:
     def _writer_agent(self, session_id=None):
             return Agent(
                     name = "Writer",
+                    role="README Documentation Specialist. Creates structured README documentation using verified repository analysis supplied by the Analyst.",
                     model = self.model_provider,
                     instructions = [self.written_instructions],
                     tools = [

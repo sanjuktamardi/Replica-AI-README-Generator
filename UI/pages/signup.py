@@ -1,8 +1,10 @@
 import os
-from pathlib import Path
 import streamlit as st
 import mysql.connector
 import datetime
+from dotenv import load_dotenv
+
+load_dotenv(".env.local")
 
 class Signup:
     def __init__(self):
@@ -12,19 +14,15 @@ class Signup:
                             layout = "centered",
                             initial_sidebar_state="collapsed",
                             )
-        self.ssl_ca = os.path.abspath("certs/ca.pem")
 
     def get_connection(self):
-        return mysql.connector.connect(
-            host=st.secrets["connections"]["host"],
-            port=int(st.secrets["connections"]["port"]),
-            user=st.secrets["connections"]["username"],
-            password=st.secrets["connections"]["password"],
-            database=st.secrets["connections"]["database"],
-            ssl_ca=self.ssl_ca,
-            ssl_verify_cert=True,
-            ssl_verify_identity=True,
-            )
+                return mysql.connector.connect(
+                    host=os.getenv("DB_HOST"),
+                    port=int(os.getenv("DB_PORT", "3306")),
+                    user=os.getenv("DB_USER"),
+                    password=os.getenv("DB_PASSWORD"),
+                    database=os.getenv("DB_NAME"),
+                )
 
     def user_exists(self, cursor, username, emaiid):
         cursor.execute("SELECT username FROM users WHERE username=%s OR emailid=%s",

@@ -1,5 +1,8 @@
 import sys
 import os
+import streamlit as st
+from chat_history_db.chat_db import new_user_chat, existing_user_chat, load_all_messages, both_conversation
+from AgenticAI.agents import Replica
 
 sys.path.append(
     os.path.dirname(
@@ -8,11 +11,6 @@ sys.path.append(
         )
     )
 )
-
-import streamlit as st
-from chat_history_db.chat_db import new_user_chat, existing_user_chat, load_all_messages, both_conversation
-from AgenticAI.agents import Replica
-
 
 class Query:
     def __init__(self):
@@ -146,6 +144,7 @@ class Query:
                             str_session_id = str(current_chat_id)
                             manager = replica.manager(session_id=str_session_id)
                             response = manager.run(user_query, session_id=str_session_id)
+                            print("MEMBER RESPONSES:", response.member_responses, flush=True)
 
                         assistant_response = response.content
                         

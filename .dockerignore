@@ -1,0 +1,30 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# IDE settings
+.vscode/
+
+# Git files
+.git/
+.gitignore
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log

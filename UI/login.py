@@ -1,18 +1,20 @@
+import os
 import streamlit as st
 import mysql.connector
+from dotenv import load_dotenv
 
-@st.cache_resource
+load_dotenv(".env.local")
+
 class Login():
         def get_connection(self):
             return mysql.connector.connect(
-                host=st.secrets["connections"]["host"],
-                port=int(st.secrets["connections"]["port"]),
-                user=st.secrets["connections"]["user"],
-                password=st.secrets["connections"]["password"],
-                database=st.secrets["connections"]["database"],
-                )
+                host=os.getenv("DB_HOST"),
+                port=int(os.getenv("DB_PORT", "3306")),
+                user=os.getenv("DB_USER"),
+                password=os.getenv("DB_PASSWORD"),
+                database=os.getenv("DB_NAME"),
+            )
 
-        
         def verify_login(self, username, emailid, password):
             conn = self.get_connection()
             cursor = conn.cursor(dictionary=True)

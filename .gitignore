@@ -1,10 +1,11 @@
 
-# Environment variables and secrets
+# Secrets
 .env
 .env.*
 !.env.example
+.streamlit/secrets.toml
 
-# Python virtual environments
+# Virtual environments
 .venv/
 venv/
 env/
@@ -12,18 +13,24 @@ env/
 # Python cache
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 
-# IDE settings
-.vscode/
-
-# Local database files only
+# Local databases
 *.db
 *.sqlite
 *.sqlite3
 
+# Temporary files
+tmp/
+UI/tmp/
+
 # Logs
 *.log
-.streamlit/secrets.toml
 
-# initialization files
-__init__.py
+# IDE
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
